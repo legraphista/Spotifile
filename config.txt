@@ -1,0 +1,22 @@
+﻿#this is a comment
+
+#interval for checking (int seconds) ex: 5 or 5.5
+interval : 5.5
+
+#file location 
+file : file.txt
+
+#string to format
+# {artist} = artist name
+# {song}   = song name
+# {album}  = album name
+
+format : {artist} - {song}
+
+#this is the text when no song is playing
+nosong : No Song!
+
+#this is the ad text
+
+ads : Ads!
+ 

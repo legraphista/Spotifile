@@ -24,7 +24,7 @@ Module Main
             Dim fw As New FileWritingClass
             Dim dis As New displayClass
             Dim comm As New commandsClass
-
+            Dim volume As New volumeMaster
 
             Do
                 stat = sp.Status
@@ -78,6 +78,16 @@ Module Main
                 If data(0).Trim.ToLower = "ads" Then
                     adText = data(1).Trim
                 End If
+                If data(0).Trim.ToLower = "advolume" Then
+                    adVolume = Integer.Parse(data(1).Trim)
+                End If
+                If data(0).Trim.ToLower = "musicvolume" Then
+                    musicVolume = Integer.Parse(data(1).Trim)
+                End If
+                If data(0).Trim.ToLower = "auto-volume" Then
+                    bypassVolumeControl = If(data(1).Trim.ToLower.Contains("no"), True, False)
+                End If
+
 
 
 

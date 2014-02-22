@@ -65,7 +65,7 @@
                     newline()
 
                     resetcols()
-                    Console.Write("Volume : ")
+                    Console.Write("Spotify Volume : ")
 
                     If stat.track Is Nothing Or Not stat.playing Then
                     ElseIf stat.[track].track_type.Trim = "ad" Or stat.[track].track_type.Trim <> "normal" Then
@@ -74,6 +74,29 @@
                         Console.ForegroundColor = ConsoleColor.Green
                     End If
                     Console.WriteLine(Math.Round(stat.volume * 100, 2))
+
+                    resetcols()
+                    Console.Write("Master Volume : ")
+                    If stat.track Is Nothing Or Not stat.playing Then
+                    ElseIf stat.[track].track_type.Trim = "ad" Or stat.[track].track_type.Trim <> "normal" Then
+                        Console.ForegroundColor = ConsoleColor.DarkRed
+                    Else
+                        Console.ForegroundColor = ConsoleColor.Green
+                    End If
+                    Console.WriteLine(currentMasterVolume)
+
+                    resetcols()
+                    Console.Write("Auto-Volume : ")
+                    If bypassVolumeControl Then
+                        Console.ForegroundColor = ConsoleColor.DarkRed
+                        Console.WriteLine("Disabled")
+
+                    Else
+                        Console.ForegroundColor = ConsoleColor.Green
+                        Console.WriteLine("Enabled")
+                    End If
+
+
 
                 End If
             Catch ex As Exception
@@ -103,10 +126,11 @@
             newline()
             Console.WriteLine("q - Close the app")
             Console.WriteLine("r - Reload config")
+            Console.WriteLine("v - enable/disable auto-volume")
 
 
 
-            Threading.Thread.Sleep(interval * 1000)
+            Threading.Thread.Sleep(1000)
 
 
         Loop

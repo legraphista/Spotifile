@@ -1,6 +1,7 @@
 ﻿Imports System.Net
-
 Public Module SpotifyAPIExt
+
+    
 
     Public Function GetOAuth() As String
         Dim client As New WebClient
@@ -19,5 +20,6 @@ Public Module SpotifyAPIExt
 
         Throw New Exception("Could not find OAuth token")
     End Function
+
 
 End Module

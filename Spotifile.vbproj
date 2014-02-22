@@ -49,6 +49,9 @@
     <ApplicationIcon>Untitled.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CoreAudioApi">
+      <HintPath>.\CoreAudioApi.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
@@ -96,6 +99,7 @@
     </Compile>
     <Compile Include="SharedData.vb" />
     <Compile Include="SpotifyAPIExt.vb" />
+    <Compile Include="volumeMaster.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

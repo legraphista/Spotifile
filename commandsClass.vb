@@ -15,6 +15,9 @@
             If c.KeyChar = "r"c Or c.KeyChar = "R"c Then
                 setup()
             End If
+            If c.KeyChar = "v"c Or c.KeyChar = "V"c Then
+                bypassVolumeControl = Not bypassVolumeControl
+            End If
         Loop
     End Sub
 End Class

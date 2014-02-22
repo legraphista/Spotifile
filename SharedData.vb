@@ -13,6 +13,11 @@ Module SharedData
     Public nosong As String = "No Song !"
     Public adText As String = "Ads!"
 
+    Public adVolume As Integer = 100
+    Public musicVolume As Integer = 100
+    Public currentMasterVolume As Integer
+    Public bypassVolumeControl As Boolean = False
+
 
     Public listOfErrors As New List(Of Exception)
 

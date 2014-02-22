@@ -51,10 +51,10 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Newtonsoft.Json.dll</HintPath>
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SpotifyLocalAPI">
-      <HintPath>..\..\..\SpotifyLocalAPI.dll</HintPath>
+      <HintPath>.\SpotifyLocalAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -95,6 +95,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SharedData.vb" />
+    <Compile Include="SpotifyAPIExt.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

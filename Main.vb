@@ -10,7 +10,7 @@ Module Main
         Console.WriteLine("Connecting to Spotify ...")
 
 
-        sp = New SpotifyAPI(SpotifyAPI.GetOAuth, "cSong.spotilocal.com")
+        sp = New SpotifyAPI(SpotifyAPIExt.GetOAuth, "cSong.spotilocal.com")
 
 
         Dim rasp As Responses.CFID = sp.CFID

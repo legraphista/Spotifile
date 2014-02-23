@@ -52,9 +52,9 @@ Public Class FileWritingClass
 
 
 
-                        txt = txt.Replace("{artist}", stat.track.artist_resource.name)
-                        txt = txt.Replace("{song}", stat.track.track_resource.name)
-                        txt = txt.Replace("{album}", stat.track.album_resource.name)
+                        txt = txt.Replace("{artist}", FixTheFormat(stat.track.artist_resource.name))
+                        txt = txt.Replace("{song}", FixTheFormat(stat.track.track_resource.name))
+                        txt = txt.Replace("{album}", FixTheFormat(stat.track.album_resource.name))
 
 
                         sw.WriteLine(txt)

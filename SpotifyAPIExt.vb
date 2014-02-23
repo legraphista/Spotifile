@@ -21,5 +21,13 @@ Public Module SpotifyAPIExt
         Throw New Exception("Could not find OAuth token")
     End Function
 
+    Public Function FixTheFormat(txt As String) As String
+        Dim utf8Encoding As New System.Text.UTF8Encoding(True)
+        Dim encodedString() As Byte
+
+        encodedString = System.Text.Encoding.Default.GetBytes(txt)
+
+        Return utf8Encoding.GetString(encodedString)
+    End Function
 
 End Module

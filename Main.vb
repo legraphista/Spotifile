@@ -10,7 +10,7 @@ Module Main
         Console.WriteLine("Connecting to Spotify ...")
 
 
-        sp = New SpotifyAPI(SpotifyAPIExt.GetOAuth, "cSong.spotilocal.com")
+        sp = New SpotifyAPI(SpotifyAPIExt.GetOAuth, "127.0.0.1")
 
 
         Dim rasp As Responses.CFID = sp.CFID
@@ -27,9 +27,12 @@ Module Main
             Dim volume As New volumeMaster
 
             Do
-                stat = sp.Status
-                gotFirstWaveOfData = True
-                Threading.Thread.Sleep(500)
+                Try
+                    stat = sp.Status
+                    gotFirstWaveOfData = True
+                    Threading.Thread.Sleep(500)
+                Catch ex As Exception
+                End Try
             Loop
 
         End If

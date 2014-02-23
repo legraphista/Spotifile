@@ -2,11 +2,27 @@
 
 Public Class volumeMaster
     Dim myOwnThread As Threading.Thread
+    Dim currentVolumeUpdateThread As Threading.Thread
 
     Sub New()
+        SharedData.currentMasterVolume = getVolume()
         myOwnThread = New Threading.Thread(AddressOf run)
         myOwnThread.Start()
+
+        currentVolumeUpdateThread = New Threading.Thread(Sub()
+                                                             Do
+                                                                 Try
+                                                                     Threading.Thread.Sleep(1000 * 30)
+                                                                     SharedData.currentMasterVolume = getVolume()
+                                                                 Catch ex As Exception
+
+                                                                 End Try
+                                                             Loop
+                                                         End Sub)
+        currentVolumeUpdateThread.Start()
     End Sub
+
+
 
     Sub run()
         While Not gotFirstWaveOfData
@@ -15,18 +31,28 @@ Public Class volumeMaster
 
         Do
             If bypassVolumeControl Then
-                Try
-                    SharedData.currentMasterVolume = getVolume()
-                Catch ex As Exception
-                End Try
-                Threading.Thread.Sleep(500)
                 Continue Do
             End If
             Try
                 If stat.[track].track_type.Trim = "ad" Or stat.[track].track_type.Trim <> "normal" Then
-                    setVolume(adVolume)
+                    If (currentMasterVolume <> adVolume) Then
+                        setVolume(adVolume)
+                        SharedData.currentMasterVolume = adVolume
+                    End If
+                   
+                    'spotify will pause so we resume
+                    Dim playing As Boolean = stat.playing
+                    Do While Not playing
+                        stat = sp.Resume
+                        playing = stat.playing
+                    Loop
+
                 Else
-                    setVolume(musicVolume)
+                    If SharedData.currentMasterVolume <> musicVolume Then
+                        setVolume(musicVolume)
+                        SharedData.currentMasterVolume = musicVolume
+                    End If
+                   
                 End If
                 SharedData.currentMasterVolume = getVolume()
 

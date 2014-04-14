@@ -96,10 +96,12 @@ Module Main
 
             Next
 
+            sr.Close()
 
         Catch ex As Exception
             Console.WriteLine("Config error")
             Console.ReadKey()
+
             End
         End Try
     End Sub

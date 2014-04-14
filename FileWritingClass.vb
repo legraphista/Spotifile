@@ -3,7 +3,6 @@
 Public Class FileWritingClass
 
     Dim myOwnThread As Threading.Thread
-    Dim sw As StreamWriter
 
     Sub New()
         myOwnThread = New Threading.Thread(AddressOf run)
@@ -16,37 +15,36 @@ Public Class FileWritingClass
         End While
 
         Do
-
             Try
 
-
                 If stat.open_graph_state.private_session Then
-                    ' Console.WriteLine("Spotify is on a private session")
                     listOfErrors.Add(New Exception("Spotify is on a private session"))
-                    Threading.Thread.Sleep(interval * 1000)
-                    Continue Do
+                    GoTo ContinueLoop
                 End If
 
 
                 If stat.error IsNot Nothing Then
-                    ' Console.WriteLine(String.Format("Spotify returned a error {0} (0x{1})", stat.[error].message, stat.[error].type))
                     listOfErrors.Add(New Exception(String.Format("Spotify returned a error {0} (0x{1})", stat.[error].message, stat.[error].type)))
-                    Threading.Thread.Sleep(interval * 1000)
-                    Continue Do
+                    GoTo ContinueLoop
                 End If
 
-                sw = New StreamWriter(filePath, False)
 
                 If stat.[track].track_type.Trim = "ad" Or stat.[track].track_type.Trim <> "normal" Then
-                    sw.WriteLine(adText)
-                    'Console.WriteLine(Date.Now & " : " & adText)
-                    textForFile = adText
+
+                    If Not textForFile.Equals(adText) Then
+                        If Not WriteToFile(adText) Then GoTo ContinueLoop
+                        textForFile = adText
+                    End If
+
                 Else
 
                     If stat.track Is Nothing Or Not stat.playing Then
-                        sw.WriteLine(nosong)
-                        'Console.WriteLine(Date.Now & " : " & nosong)
-                        textForFile = nosong
+
+                        If Not (textForFile.Equals(nosong)) Then
+                            If Not WriteToFile(nosong) Then GoTo ContinueLoop
+                            textForFile = nosong
+                        End If
+
                     Else
                         Dim txt As New String(format)
 
@@ -56,29 +54,40 @@ Public Class FileWritingClass
                         txt = txt.Replace("{song}", FixTheFormat(stat.track.track_resource.name))
                         txt = txt.Replace("{album}", FixTheFormat(stat.track.album_resource.name))
 
+                        If Not txt.Equals(textForFile) Then
+                            If Not WriteToFile(txt) Then GoTo ContinueLoop
+                            textForFile = txt
+                        End If
 
-                        sw.WriteLine(txt)
-
-                        ' Console.WriteLine(Date.Now & " : " & txt)
-                        textForFile = txt
                     End If
                 End If
-                sw.Close()
+
+ContinueLoop:
 
                 Threading.Thread.Sleep(interval * 1000)
 
             Catch ex As Exception
                 listOfErrors.Add(ex)
-                ' Console.WriteLine("Error: " & ex.Message)
-                If sw IsNot Nothing Then
-                    Try
-                        sw.Close()
-                    Catch ex2 As Exception
-                    End Try
-                End If
                 Threading.Thread.Sleep(interval * 1000)
             End Try
         Loop
     End Sub
+
+    Private Function WriteToFile(text As String) As Boolean
+        Try
+
+            Dim sw = New StreamWriter(filePath, False)
+            sw.Write(text)
+            sw.Close()
+            Return True
+
+        Catch ex As Exception
+
+            listOfErrors.Add(ex)
+
+        End Try
+
+        Return False
+    End Function
 
 End Class

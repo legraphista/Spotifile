@@ -1,4 +1,4 @@
-﻿Imports JariZ
+﻿
 Imports System.IO
 
 Module Main

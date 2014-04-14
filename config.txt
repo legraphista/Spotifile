@@ -24,11 +24,11 @@ ads : Ads!
 #volumes range from 0 to 100, 0 being the lowest volume (muted)
 
 #enable auto volume, use yes or no
-auto-volume : no
+auto-volume : yes
 
 #ad volume
-adVolume : 50 
+adVolume : 0 
 
 #music volume
-musicVolume : 90 
+musicVolume : 100 
  

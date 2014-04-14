@@ -1,11 +1,10 @@
-﻿Imports JariZ
-
+﻿
 Module SharedData
 
     Public gotFirstWaveOfData As Boolean = False
 
     Public sp As SpotifyAPI
-    Public stat As JariZ.Responses.Status
+    Public stat As Responses.Status
 
     Public interval As Double = 5
     Public filePath As String = "D:\file.txt"

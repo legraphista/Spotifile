@@ -5,7 +5,6 @@ Imports System.Text
 Imports System.Net
 Imports Newtonsoft.Json
 
-
 Public Class SpotifyAPI
     Private _oauth As String
     Private _host As String
@@ -24,6 +23,20 @@ Public Class SpotifyAPI
         wc.Headers.Add("Referer", "https://embed.spotify.com/openplay/?uri=spotify:track:6uQ192yNyZ4W8yoaL0Sb9p")
         wc.Headers.Add("User-Agent: SpotifyAPI")
     End Sub
+    ''' <summary>
+    ''' Fixes special characters, excoding to UTF-8
+    ''' </summary>
+    ''' <param name="txt">Text in ANSI encoding from Spotify</param>
+    ''' <returns>Text in UTF-8</returns>
+    ''' <remarks></remarks>
+    Public Shared Function FixTheFormat(txt As String) As String
+        Dim utf8Encoding As New System.Text.UTF8Encoding(True)
+        Dim encodedString() As Byte
+
+        encodedString = System.Text.Encoding.Default.GetBytes(txt)
+
+        Return utf8Encoding.GetString(encodedString)
+    End Function
 
     ''' <summary>
     ''' Get a link to the 640x640 cover art image of a spotify album
@@ -155,7 +168,11 @@ Public Class SpotifyAPI
     ''' </summary>
     ''' <returns></returns>
     Public Shared Function GetOAuth() As String
-        Dim raw As String = New WebClient().DownloadString("https://embed.spotify.com/openplay/?uri=spotify:track:5Zp4SWOpbuOdnsxLqwgutt")
+        Dim client As New WebClient
+        client.Headers.Add("User-Agent: SpotifyAPI")
+
+
+        Dim raw As String = client.DownloadString("https://embed.spotify.com/openplay/?uri=spotify:track:6uQ192yNyZ4W8yoaL0Sb9p")
         raw = raw.Replace(" ", "")
         Dim lines As String() = raw.Split(New String() {vbLf}, StringSplitOptions.None)
         For Each line As String In lines

@@ -97,7 +97,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SharedData.vb" />
-    <Compile Include="SpotifyAPIExt.vb" />
     <Compile Include="volumeMaster.vb" />
   </ItemGroup>
   <ItemGroup>

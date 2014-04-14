@@ -50,9 +50,9 @@ Public Class FileWritingClass
 
 
 
-                        txt = txt.Replace("{artist}", FixTheFormat(stat.track.artist_resource.name))
-                        txt = txt.Replace("{song}", FixTheFormat(stat.track.track_resource.name))
-                        txt = txt.Replace("{album}", FixTheFormat(stat.track.album_resource.name))
+                        txt = txt.Replace("{artist}", SpotifyAPI.FixTheFormat(stat.track.artist_resource.name))
+                        txt = txt.Replace("{song}", SpotifyAPI.FixTheFormat(stat.track.track_resource.name))
+                        txt = txt.Replace("{album}", SpotifyAPI.FixTheFormat(stat.track.album_resource.name))
 
                         If Not txt.Equals(textForFile) Then
                             If Not WriteToFile(txt) Then GoTo ContinueLoop

@@ -39,6 +39,13 @@
 
         Do
             Console.Clear()
+            If Not isAdmin Then
+                resetcols()
+                Console.ForegroundColor = ConsoleColor.Red
+                Console.WriteLine("Spotifile does not have administator privileges!")
+                Console.WriteLine("Auto-Volume might not work!")
+            End If
+
             resetcols()
             Console.WriteLine("Date and time : " & Date.Now)
             drawLine("~", ConsoleColor.Yellow)

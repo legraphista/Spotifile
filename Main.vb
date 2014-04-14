@@ -7,6 +7,7 @@ Module Main
         Console.Title = "Spotifile"
         Console.WriteLine("Reading config ...")
         setup()
+        getElevationStatus()
         Console.WriteLine("Connecting to Spotify ...")
 
 

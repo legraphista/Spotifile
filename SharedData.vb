@@ -1,4 +1,4 @@
-﻿
+﻿Imports System.Security.Principal
 Module SharedData
 
     Public gotFirstWaveOfData As Boolean = False
@@ -17,6 +17,7 @@ Module SharedData
     Public currentMasterVolume As Integer
     Public bypassVolumeControl As Boolean = False
 
+    Public isAdmin As Boolean = False
 
     Public listOfErrors As New List(Of Exception)
 
@@ -45,9 +46,14 @@ Module SharedData
         Catch ex2 As Exception
         End Try
 
-
-
         Return frame.GetFileColumnNumber & "," & frame.GetFileLineNumber & ":" & fltxt
 
     End Function
+
+    Public Sub getElevationStatus()
+        Dim identity = WindowsIdentity.GetCurrent()
+        Dim principal = New WindowsPrincipal(identity)
+        isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator)
+    End Sub
+
 End Module
